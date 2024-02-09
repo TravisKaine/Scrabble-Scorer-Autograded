@@ -104,7 +104,7 @@ function scrabbleScorer(word) {
   },
 ];
  
-// This function prompts the user to select a scoring algorithm by displaying the available options.//
+//This function prompts the user to select a scoring algorithm by displaying the available options.//
 
 function scorerPrompt(word) {
    console.log("which scoring algorithm would like to use \n");
@@ -117,7 +117,7 @@ function scorerPrompt(word) {
    return scoringAlgorithms[value];
  }
 
-// This function takes the oldPointStructure object, looks over its keys and values,//
+//This function takes the oldPointStructure object, looks over its keys and values,//
 //and transforms it into a new object where the keys are lowercase letters and the values are their point values.//
 
 function transform(obj) {
@@ -138,8 +138,8 @@ function runProgram() {
  initialPrompt();
 }
 
-// Don't write any code below this line //
-// And don't change these or your program will not run as expected //
+//Don't write any code below this line //
+//And don't change these or your program will not run as expected //
 module.exports = {
    initialPrompt: initialPrompt,
    transform: transform,
