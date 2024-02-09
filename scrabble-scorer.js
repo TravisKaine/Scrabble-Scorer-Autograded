@@ -1,7 +1,7 @@
 // This assignment is inspired by a problem on Exercism (https://exercism.org/tracks/javascript/exercises/etl) that demonstrates Extract-Transform-Load using Scrabble's scoring system. 
 
 const input = require("readline-sync");
-
+const vowels =['A','E','I','O','U']
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
   2: ['D', 'G'],
@@ -34,25 +34,83 @@ function oldScrabbleScorer(word) {
 
 function initialPrompt() {
    console.log("Let's play some scrabble! Enter a word:");
+   console.log();
+   let wordToScore = input.question("Enter a word to score: ");
+   let scorer = scorerPrompt();
+   scrabbleScore = scorer.scorerFunction(wordToScore);
+   console.log();
+   console.log(`Score for '${wordToScore}': ${scrabbleScore}`);
+
 };
 
-let simpleScorer;
+function simpleScorer(word){
+  return word.length;
+};
 
-let vowelBonusScorer;
+function vowelBonusScorer(word){
+  let points = 0;
+  word = word.toUpperCase();
+  for (const letter of word) {
+    if (vowels.includes(letter)) {
+      points += 3;
+    } else {
+      points += 1;
+    }
+  }
+  return points;
+}
 
-let scrabbleScorer;
+function scrabbleScorer(word) {
+  let points = 0;
+  for (const letter of word) {
+    points += newPointStructure[letter.toLowerCase()] || 0;
+  }
+  return points;
+}
 
-const scoringAlgorithms = [];
+ const scoringAlgorithms = [
+  {
+    name: "Simple Score",
+    description: "Each letter is worth 1 point.",
+    scorerFunction: simpleScorer
+  },
+  {
+    name: "Bonus Vowels",
+    description: "Vowels are 3 pts, consonants are 1 pt.",
+    scorerFunction: vowelBonusScorer
+  },
+  {
+    name: "Scrabble",
+    description: "The traditional scoring algorithm.",
+    scorerFunction: scrabbleScorer
+  },
+];
+ 
 
-function scorerPrompt() {}
+function scorerPrompt(word) {
+   console.log("which scoring algorithm would like to use \n");
 
-function transform() {};
+   for (i = 0; i < scoringAlgorithms.length; i++) {
+     console.log(`${i} - ${scoringAlgorithms[i].name}: ${scoringAlgorithms[i].description}`);
+   }
+ 
+   let value = input.question("Enter 0, 1, or 2: ");
+   return scoringAlgorithms[value];
+ }
 
-let newPointStructure;
+function transform(obj) {
+  let newObj = {};
+  for (const key in obj) {
+    for (const letter of obj[key]) {
+      newObj[letter.toLowerCase()] = Number(key);
+    }
+  }
+  return newObj;
+}
 
+const newPointStructure = transform(oldPointStructure);
 function runProgram() {
-   initialPrompt();
-   
+ initialPrompt();
 }
 
 // Don't write any code below this line //
