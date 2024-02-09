@@ -12,6 +12,10 @@ const oldPointStructure = {
   10: ['Q', 'Z']
 };
 
+//This function takes a word as input, converts it to uppercase. For each letter,//
+//it checks its point value based on the oldPointStructure object and constructs a string//
+//with the letter and its point value.//
+
 function oldScrabbleScorer(word) {
 	word = word.toUpperCase();
 	let letterPoints = "";
@@ -32,6 +36,9 @@ function oldScrabbleScorer(word) {
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
 
+//This function prompts the user to enter a word to score, prompts the user to select a scoring algorithm,// 
+//calculates the score using the selected algorithm.//
+
 function initialPrompt() {
    console.log("Let's play some scrabble! Enter a word:");
    console.log();
@@ -43,9 +50,14 @@ function initialPrompt() {
 
 };
 
+//This function takes a word as input and returns the length of the word as its score.//
+
 function simpleScorer(word){
   return word.length;
 };
+
+//This function takes a word as input, converts it to uppercase, iterates over each letter,//
+//and assigns points based on whether the letter is a vowel or consonant.//
 
 function vowelBonusScorer(word){
   let points = 0;
@@ -60,6 +72,9 @@ function vowelBonusScorer(word){
   return points;
 }
 
+//This function takes a word as input, converts it to lowercase, iterates over each letter,//
+//looks up its point value from the newPointStructure object.//
+
 function scrabbleScorer(word) {
   let points = 0;
   for (const letter of word) {
@@ -67,6 +82,9 @@ function scrabbleScorer(word) {
   }
   return points;
 }
+
+//This array contains three objects, each representing a scoring algorithm.//
+//The scorerFunction property references one of the three scoring functions defined above.//
 
  const scoringAlgorithms = [
   {
@@ -86,6 +104,7 @@ function scrabbleScorer(word) {
   },
 ];
  
+// This function prompts the user to select a scoring algorithm by displaying the available options.//
 
 function scorerPrompt(word) {
    console.log("which scoring algorithm would like to use \n");
@@ -98,6 +117,9 @@ function scorerPrompt(word) {
    return scoringAlgorithms[value];
  }
 
+// This function takes the oldPointStructure object, looks over its keys and values,//
+//and transforms it into a new object where the keys are lowercase letters and the values are their point values.//
+
 function transform(obj) {
   let newObj = {};
   for (const key in obj) {
@@ -108,7 +130,10 @@ function transform(obj) {
   return newObj;
 }
 
+//This object stores the transformed point structure, where each lowercase letter is mapped to its values.//
+
 const newPointStructure = transform(oldPointStructure);
+
 function runProgram() {
  initialPrompt();
 }
